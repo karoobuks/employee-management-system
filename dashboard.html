@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dynamic Table</title>
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+</head>
+<body>
+    <h1 style="color: red;">welcome to the dashboard</h1>
+    <h2>Employee Management System</h2>
+    <div><h5>Total Employees</h5>
+        <p>Numbers of Employees</p>
+    </div>
+    <div>
+      
+
+          <h1>Employee List</h1>
+  <table id="employeeTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Department</th>
+        <th>Salary</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <h2>Add New Employee</h2>
+  <form id="employeeForm">
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="text" id="position" placeholder="Position" required> 
+    <input type="text" id="department" placeholder="Department" required>
+    <input type="number" id="salary" placeholder="Salary" required>
+    <button type="submit">Add Employee</button>
+  </form>
+          
+    </div>
+
+    <script>
+      const tableBody = document.querySelector("#employeeTable tbody");
+  
+      // Fetch and display employees
+      async function fetchEmployees() {
+        const response = await fetch("http://localhost:7070/auth/employees");
+        const employees = await response.json();
+        console.log("Fetched employees:", employees);
+  
+        const employeeList = employees.data;
+      if (Array.isArray(employeeList)) {
+    tableBody.innerHTML = "";
+    employeeList.forEach(employee => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${employee.name}</td>
+        <td>${employee.position}</td>
+        <td>${employee.department}</td>
+        <td>${employee.salary}</td>
+        <td><button onclick="deleteEmployee('${employee._id}')">Delete</button></td>
+      `;
+      tableBody.appendChild(row);
+    });
+  } else {
+    console.error("Unexpected data format:", employees);
+    alert("Failed to load employees. Please check the backend.");
+  }
+}
+  
+      // Add new employee
+      document.querySelector("#employeeForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const newEmployee = {
+          name: document.querySelector("#name").value.trim(),
+          position: document.querySelector("#position").value.trim(),
+          department: document.querySelector("#department").value.trim(),
+          salary: parseInt(document.querySelector("#salary").value),
+        };
+  
+        await fetch("http://localhost:7070/auth/employees", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(newEmployee)
+        });
+  
+        document.querySelector("#employeeForm").reset();
+        fetchEmployees();
+      });
+  
+      // Delete employee
+      async function deleteEmployee(id) {
+        await fetch(`http://localhost:7070/auth/employee/${id}`, { method: "DELETE" });
+        fetchEmployees();
+      }
+  
+      // Initial fetch
+      fetchEmployees();
+
+      
+
+    </script>
+</body>
+</html>

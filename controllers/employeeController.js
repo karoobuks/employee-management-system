@@ -3,6 +3,7 @@ const Employee = require('../models/employeeModel')
 exports.createEmployee = async (req, res, next)=>{
  try{
     const newEmployee = await Employee.create(req.body)
+    await newEmployee.save();
     return res.status(201).json({message:'welcome to our company', data:newEmployee})
  }catch(error){
     return res.status(400).json({message:'something went wrong', error})
@@ -88,6 +89,8 @@ exports.getTotalAnnualSalary = async (req, res) => {
     }
   };
 
+
+  
 
   
   

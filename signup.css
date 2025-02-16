@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Poppins:ital,wght@0,100;0,400;0,500;0,600;0,900;1,200;1,700&family=Roboto:ital,wght@0,400;1,100;1,300;1,500;1,700&display=swap');
+:root{
+    --base-clr:#11121a;
+    --line-clr:#42434a;
+    --hover-clr:#222533;
+    --text-clr:#e6e6ef;
+    --accent-clr:#5e63ff;
+    --secondary-text-clr:#b0b3c1;
+}
+*{
+    padding: 0;
+    margin: 0;
+}
+html{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.5rem;
+}
+
+body{
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: var(--base-clr);
+    color: var(--text-clr);
+    display: grid;
+    grid-template-columns: auto 1fr;
+
+}
+#signup-form{
+    text-align: flex-end;
+    margin: auto;
+    margin-left: 200px;
+    margin-top: 40px;
+    line-height: 30px;
+    gap: 10px;
+    
+} 
+input{
+    padding: 10px;
+    height: 15px;
+    width: 200px;
+    border-radius: 5px;
+    gap: 50px;
+    /* border: none; */
+    margin: auto;
+}  
+
+.btn{
+    background-color: #e3e3e3;
+    padding: 10px 20px;
+    color: green;
+    transition: 0.5s;
+    height: 30px;
+    width: 300px;
+    border-radius: 10px;
+}
+
+.btn:hover{
+    color: #ffffff;
+    background-color:green
+    
+}

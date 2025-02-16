@@ -25,13 +25,7 @@ const employeeSchema = new mongoose.Schema({
     // }
 })
 
-// employeeSchema.pre('save', function(next) {
-//     if (!this.salary || this.salary <= 0) {
-//       return next(new Error('Salary must be a positive number'));
-//     }
-//     this.annualSalary = this.salary * 12;
-//     next();
-//   });
+
 
 employeeSchema.virtual('annualSalary').get(function () {
     return this.salary * 12;
